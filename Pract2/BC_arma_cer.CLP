@@ -12,14 +12,29 @@
 	(assert (problema gatillo))
 )
 
-(defrule regla_4
+(defrule regla_3
 	(declare (CF 1))
 	(seguro puesto)
 =>
 	(assert (quitar seguro))
 )
 
+(defrule regla_4
+	(declare (CF 0.9))
+	(quitar seguro)
+=>
+	(assert (error humano))
+)
+
 (defrule regla_5
+	(declare (CF 0.1))
+	(quitar seguro)
+=>
+	(assert (problema seguro))
+)
+
+
+(defrule regla_6
 	(declare (CF 0.2))
 	(arma no_dispara)
 	(arma percute)
@@ -27,7 +42,7 @@
 	(assert (problema percutor))
 )
 
-(defrule regla_6
+(defrule regla_7
 	(declare (CF 0.1))
 	(arma no_dispara)
 	(arma percute)
@@ -35,7 +50,7 @@
 	(assert (problema bala))
 )
 
-(defrule regla_7
+(defrule regla_8
 	(declare (CF 0.7))
 	(arma no_dispara)
 	(arma percute)
@@ -43,7 +58,7 @@
 	(assert (arma no_cargada))
 )
 
-(defrule regla_8
+(defrule regla_9
 	(declare (CF 1))
 	(arma cargada)
 	(arma no_cargada)
@@ -51,7 +66,7 @@
 	(assert (error humano))
 )
 
-(defrule regla_9
+(defrule regla_10
 	(declare (CF 0.3))
 	(arma no_dispara)
 	(arma no_percute)
@@ -59,7 +74,7 @@
 	(assert (gatillo bloqueado))
 )
 
-(defrule regla_10
+(defrule regla_11
 	(declare (CF 0.4))
 	(arma no_dispara)
 	(arma no_percute)
@@ -67,7 +82,7 @@
 	(assert (problema percutor))
 )
 
-(defrule regla_11
+(defrule regla_12
 	(declare (CF 0.3))
 	(arma no_dispara)
 	(arma no_percute)
@@ -75,24 +90,25 @@
 	(assert (problema cargador))
 )
 
-(defrule regla_12
+(defrule regla_13
 	(declare (CF 1))
 	(problema bala)
 =>
 	(assert (cambiar bala))
 )
 
-(defrule regla_13
+(defrule regla_14
 	(declare (CF 1))
 	(problema cargador)
 =>
 	(assert (cambiar cargador))
 )
 
-(defrule regla_14
+(defrule regla_15
 	(declare (CF 1))
 	(or	(problema percutor)
 		(problema gatillo)
+		(problema seguro)
 	)
 =>
 	(assert (revisar en_armeria))
